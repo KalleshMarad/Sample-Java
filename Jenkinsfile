@@ -32,7 +32,7 @@ pipeline{
          echo 'building applications...'
          echo "building version ${NEW_VERSION}"
          echo "building vesrion by parameters ${params.VERSION}"
-         sh "mvn install"
+         //sh "mvn install"
       }
     }
     stage("test"){
