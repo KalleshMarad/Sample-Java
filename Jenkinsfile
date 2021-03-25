@@ -13,6 +13,11 @@ pipeline{
   }
   stages{
     stage("build"){
+      when{
+        expression{
+             params.executeTest
+           }
+      }
       steps{
          echo 'building applications...'
          echo "building version ${NEW_VERSION}"
