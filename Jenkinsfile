@@ -6,11 +6,17 @@ pipeline{
   tools{
         maven 'M3' 
   }
+  parameters{
+        //string(name:'VERSION', defaultValue:'', description: 'version to deploy prod')
+        choice(name:'VERSION', choices:['1.1.0','1.2.0','1.3.0'], description:'')
+        booleanParam(name:'executeTest', defaultValue:true, description:'')
+  }
   stages{
     stage("build"){
       steps{
          echo 'building applications...'
          echo "building version ${NEW_VERSION}"
+         echo "building vesrion by parameters ${param.VERSION}"
          sh "mvn install"
       }
     }
