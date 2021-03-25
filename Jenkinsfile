@@ -12,6 +12,13 @@ pipeline{
         booleanParam(name:'executeTest', defaultValue:true, description:'')
   }
   stages{
+    stage("init){
+          steps{
+            script{
+                gv=load "script.groovy"   
+            }
+         }
+     }
     stage("build"){
       when{
         expression{
@@ -19,6 +26,9 @@ pipeline{
            }
       }
       steps{
+         script{
+                gv.buildApp() 
+            }
          echo 'building applications...'
          echo "building version ${NEW_VERSION}"
          echo "building vesrion by parameters ${params.VERSION}"
@@ -32,11 +42,17 @@ pipeline{
            }
       }
       steps{
+          script{
+                gv.testApp() 
+            }
          echo 'testing applications...'
       }
     }
     stage("deploy"){
       steps{
+          script{
+                gv.deployApp() 
+            }
          echo 'deploying applications...'
       }
     }
